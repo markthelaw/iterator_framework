@@ -14,7 +14,7 @@ public class FilteringIterator<T> implements Iterator<T> {
 		this.myTest = myTest;
 
 		if (myIterator.hasNext()) {
-			next = myIterator.next();
+			this.next = myIterator.next();
 		}
 	}
 
@@ -26,24 +26,24 @@ public class FilteringIterator<T> implements Iterator<T> {
 	@Override
 	public T next() {
 
-		Object peek = this.peek();
-
-
-		while (peek != null && !myTest.test(peek)) {
+		while (this.next != null && !myTest.test(this.next)) {
 			//shift next
-			next = myIterator.hasNext() ? myIterator.next() : null;
-
-			peek = this.peek();
+			this.next = myIterator.hasNext() ? myIterator.next() : null;
 
 		}
+		//get ready for next, so that hasNext works optimally
 		T res = next;
-		next = myIterator.hasNext() ? myIterator.next() : null;
+		this.next = myIterator.hasNext() ? myIterator.next() : null;
+		if (this.next != null){
+			while (this.next != null && !myTest.test(this.next)) {
+				//shift next
+				this.next = myIterator.hasNext() ? myIterator.next() : null;				
+				
+			}			
+		}
+		
 		return res;
 
 	}
 
-	// use the peek to check if the value passes the myTest.test.
-	public Object peek() {
-		return next;
-	}
 }

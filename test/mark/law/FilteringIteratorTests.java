@@ -14,7 +14,7 @@ public class FilteringIteratorTests {
 	@Test
 	public void test() {
 		
-		int[] arr = { 1, 2, 3, 4, 5, 6, 7};
+		int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
 		PrimitiveIterator.OfInt i1 = Arrays.stream(arr).iterator();
 		IObjectTest iot = new IObjectTestCheckIfEven();
 
@@ -22,9 +22,9 @@ public class FilteringIteratorTests {
 
 		while (fi.hasNext()) {
 			Integer v = fi.next();
-			if (v!=null){
-				assertEquals(v%2, 0);
-			}
+			
+			assertEquals(v%2, 0);
+			
 		}
 	}
 
